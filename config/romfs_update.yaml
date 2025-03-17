@@ -1,0 +1,6 @@
+ignored exts:
+  - .ini
+  - .bundle
+  - .exe
+input directory path: input
+output directory path: output\WhateverMod\romfs\Data\StreamingAssets\aa\Switch
