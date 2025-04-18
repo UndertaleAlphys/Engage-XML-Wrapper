@@ -14,6 +14,10 @@ output_dir = lib.abs_path(config_loaded['output directory path'])
 subprocess_lst: list[subprocess.Popen] = []
 
 
+def rprint(s: str):
+    print('[UR]\t' + s)
+
+
 def parse_recursively(in_path: str, out_path: str, executable_path: str, ignored: list[str],
                       subprocess_list: list[subprocess.Popen]):
     if not (os.path.exists(out_path) and os.path.isdir(out_path)):
@@ -32,13 +36,13 @@ def parse_recursively(in_path: str, out_path: str, executable_path: str, ignored
                 out_file_base = base
             out_file = out_file_base + '.bundle'
             if not os.path.exists(out_file) or os.path.isdir(out_file):
-                print(f'{out_file} DNE')
+                rprint(f'{out_file} DNE')
             argv_line = [executable_path, '-in', abs_file, out_file]
-            print(f'inserting to {out_file}')
+            rprint(f'inserting to {out_file}')
             subprocess_list.append(subprocess.Popen(argv_line))
 
 
 parse_recursively(input_dir, output_dir, engage_xml_path, ignored_exts, subprocess_lst)
-print('waiting subprocesses to be done...')
+rprint('waiting subprocesses to be done...')
 for sp in subprocess_lst:
     sp.wait()
